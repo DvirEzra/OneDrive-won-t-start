@@ -33,3 +33,44 @@ An administrator of your organization has configured a Group Policy setting to p
 In order to sync with OneDrive for work or school, the DisableFileSyncNGSC key must be removed or the DWORD value must be changed to 0 (zero). If the registry value was set as part of a Group Policy Object, the policy must be removed.
 
 If you decide to manually change this key or to remove the key without having your administrator change the policy for your computer, the next time the policy runs (typically after a restart, after you sign in to Windows, or after periodic updates), the policy is reapplied, and OneDrive for work or school won't start again.
+
+
+Here is an example README file for your OneDrive sync enabler script repository:
+
+# OneDrive Sync Enabler 
+
+This repository contains a PowerShell script to enable OneDrive sync on machines where it has been disabled by Group Policy.
+
+## Script
+
+The FixOneDriveStart.ps1 script checks the registry key value and enables sync if needed:
+
+```powershell
+# FixOneDriveStart.ps1 script content here
+```
+
+## Usage
+
+To use the script:
+
+1. Download FixOneDriveStart.ps1
+2. Open PowerShell as administrator
+3. Run the script:
+
+```
+.\FixOneDriveStart.ps1
+```
+
+4. OneDrive sync should now be enabled
+
+## Script Description
+
+The FixOneDriveStart.ps1 script fixes the issue where OneDrive sync is prevented from starting due to a Group Policy setting.
+
+It checks the registry key HKLM:\Software\Policies\Microsoft\Windows\OneDrive for the value of DisableFileSyncNGSC. If this DWORD value is set to 1, it will change it to 0 to allow OneDrive sync.
+
+The script first gets the current value using Get-ItemProperty. It then checks if the value is 1, indicating sync is disabled. If so, it uses Set-ItemProperty to set the value to 0 to enable sync.
+
+Finally, it prints out messages indicating the status and whether any change was made.
+
+This allows machines with the Group Policy setting to have OneDrive sync enabled without needing to change the policy itself. The script can be run on any affected machines to re-enable sync.
